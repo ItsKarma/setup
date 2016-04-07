@@ -1,0 +1,48 @@
+--- # Manage homebrew packages using ansible
+- hosts: localhost
+  tasks:
+
+# homebrew
+  - name: Update homebrew and upgrade all
+    homebrew: update_homebrew=yes upgrade_all=yes
+
+  - name: Brew casks
+    homebrew_cask: name={{ item }} state=present
+    with_items:
+     - vagrant
+     - atom
+     - yakyak
+     - sequel-pro
+     - psequel
+     - nylas-n1
+     - iterm2
+     - firefox
+     - google-chrome
+
+  - name: Install packages
+    homebrew: name={{ item }} state=latest
+    with_items:
+     - terraform
+     - packer
+     - vault
+     - consul
+     - ansible
+     - docker
+
+# pip/virtualenv
+  - name: Manually create dev virtualenv
+    command: virtualenv ~/envs/dev -p python2.7 creates="~/envs/dev"
+
+  - name: Install global packages
+    pip: name={{ item }} state=latest extra_args=--user
+    with_items:
+     - awscli
+     - saws
+     - boto
+
+  - name: Install packages into dev virtualenv
+    pip: name={{ item }} state=latest virtualenv=dev
+    with_items:
+     - awscli
+     - saws
+     - boto
