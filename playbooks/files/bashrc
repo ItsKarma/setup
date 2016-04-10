@@ -24,6 +24,10 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 export WORKON_HOME=~/envs
 [ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
+if which ruby > /dev/null && which gem > /dev/null; then
+    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+
 # Unlimited History!
 export HISTFILESIZE=
 export HISTSIZE=
