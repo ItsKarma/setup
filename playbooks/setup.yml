@@ -32,7 +32,7 @@
      - slack
      - hipchat
      - razer-synapse
-     - docker-machine
+     - virtualbox
 
   - name: Install packages
     homebrew: name={{ item }} state=latest
@@ -43,6 +43,8 @@
      - consul
      - ansible
      - docker
+     - docker-machine
+     - docker-compose
      - jq
      - keybase
 
@@ -69,3 +71,7 @@
 #     - awscli
 #     - saws
 #     - boto
+
+# Install atom packages
+  - name: Install atom packages
+    command: apm install vim-mode
