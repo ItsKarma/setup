@@ -2,6 +2,12 @@
 - hosts: localhost
   tasks:
 
+# Copy config files
+  - name: copy bash_profile
+    copy: src=files/bash_profile dest=~/.bash_profile
+  - name: copy bashrc
+    copy: src=files/bashrc dest=~/.bashrc
+
 # homebrew
   - name: Update homebrew and upgrade all
     homebrew: update_homebrew=yes upgrade_all=yes
@@ -18,6 +24,15 @@
      - iterm2
      - firefox
      - google-chrome
+     - alfred
+     - dropbox
+     - shiftit
+     - 1password
+     - discord
+     - slack
+     - hipchat
+     - razer-synapse
+     - docker-machine
 
   - name: Install packages
     homebrew: name={{ item }} state=latest
@@ -28,21 +43,29 @@
      - consul
      - ansible
      - docker
+     - jq
+     - keybase
 
 # pip/virtualenv
+  - name: install pip via easy_install
+    command: sudo easy_install pip
+
+  - name: Install global packages via pip
+    pip: name={{ item }} state=latest extra_args=--user
+    with_items:
+     - virtualenv
+     - virtualenvwrapper
+     - awscli
+     - saws
+     - boto
+
+  - file: path=~/envs state=directory mode=0755
   - name: Manually create dev virtualenv
     command: virtualenv ~/envs/dev -p python2.7 creates="~/envs/dev"
 
-  - name: Install global packages
-    pip: name={{ item }} state=latest extra_args=--user
-    with_items:
-     - awscli
-     - saws
-     - boto
-
-  - name: Install packages into dev virtualenv
-    pip: name={{ item }} state=latest virtualenv=dev
-    with_items:
-     - awscli
-     - saws
-     - boto
+#  - name: Install packages into dev virtualenv
+#    pip: name={{ item }} state=latest virtualenv=dev
+#    with_items:
+#     - awscli
+#     - saws
+#     - boto
