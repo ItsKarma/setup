@@ -75,3 +75,5 @@
 # Install atom packages
   - name: Install atom packages
     command: apm install vim-mode
+  - name: Intsall atom jekyll
+    command: apm install jekyll
