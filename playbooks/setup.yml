@@ -37,6 +37,7 @@
   - name: Install packages
     homebrew: name={{ item }} state=latest
     with_items:
+     - gcc
      - terraform
      - packer
      - vault
@@ -47,6 +48,12 @@
      - docker-compose
      - jq
      - keybase
+
+# install ruby gems
+  - name: install ruby gems
+    gem: name={{ item }} state=latest
+    with_items:
+     - jekyll
 
 # pip/virtualenv
   - name: install pip via easy_install
