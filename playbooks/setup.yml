@@ -86,3 +86,5 @@
     command: apm install vim-mode
   - name: Intsall atom jekyll
     command: apm install jekyll
+  - name: Intsall atom jekyll
+    command: apm install go-plus
