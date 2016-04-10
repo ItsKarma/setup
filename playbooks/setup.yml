@@ -33,6 +33,8 @@
      - hipchat
      - razer-synapse
      - virtualbox
+     - evernote
+     - java
 
   - name: Install packages
     homebrew: name={{ item }} state=latest
