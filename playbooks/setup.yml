@@ -19,10 +19,8 @@
       - vagrant
       - chefdk
       - atom
-      - yakyak
       - sequel-pro
       - psequel
-      - nylas-n1
       - iterm2
       - firefox
       - google-chrome
@@ -33,10 +31,11 @@
       - discord
       - slack
       - hipchat
-      - razer-synapse
       - virtualbox
       - evernote
+      - skitch
       - java
+      - visual-studio-code
 
   - name: Install packages
     homebrew: name={{ item }} state=latest
@@ -50,10 +49,7 @@
       - consul
       - ansible
       - docker
-      - docker-machine
-      - docker-compose
       - jq
-      - keybase
       - gpg
 
 # install ruby gems
