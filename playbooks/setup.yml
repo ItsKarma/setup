@@ -8,93 +8,54 @@
   - name: copy bashrc
     copy: src=files/bashrc dest=~/.bashrc
 
-# homebrew
+# Homebrew
   - name: Update homebrew and upgrade all
     homebrew: update_homebrew=yes upgrade_all=yes
 
-  - name: Brew casks
-    homebrew_cask: name={{ item }} state=present
-    with_items:
-      - gitup
-      - vagrant
-      - chefdk
-      - atom
-      - sequel-pro
-      - psequel
-      - iterm2
-      - firefox
-      - google-chrome
-      - alfred
-      - dropbox
-      - shiftit
-      - 1password
-      - discord
-      - slack
-      - hipchat
-      - virtualbox
-      - evernote
-      - skitch
-      - java
-      - visual-studio-code
+  - name: Tap tfswitch
+    homebrew_tap: warrensbox/tap/tfswitch
+    state: present
 
-  - name: Install packages
-    homebrew: name={{ item }} state=latest
-    with_items:
-      - git
-      - gcc
-      - golang
-      - terraform
-      - packer
-      - vault
-      - consul
-      - ansible
-      - docker
-      - jq
-      - gpg
+  - name: Brew install
+    homebrew:
+      name:
+        - git
+#        - gcc
+        - ansible
+        - jq
+        - gpg
+        - awscli
+      state: latest
 
-# install ruby gems
-  - name: install ruby gems
-    gem: name={{ item }} state=latest
-    with_items:
-      - jekyll
+  - name: Brew cask install
+    homebrew_cask:
+      name:
+        - atom
+        - iterm2
+        - visual-studio-code
+#       - sequel-pro
+#       - psequel
+#       - firefox
+#       - google-chrome
+#       - alfred
+#       - dropbox
+#       - shiftit
+#       - 1password
+#       - discord
+#       - slack
+#       - java
+      state: present
 
-# pip/virtualenv
-  - name: install pip via easy_install
-    command: sudo easy_install pip
-
-  - name: Install global packages via pip
-    pip: name={{ item }} state=latest extra_args=--user
-    with_items:
-      - pip
-      - virtualenv
-      - virtualenvwrapper
-      - awscli
-      - saws
-      - boto
-
-  - file: path=~/envs state=directory mode=0755
-#  - name: Manually create dev virtualenv
-#    command: virtualenv ~/envs/dev -p python2.7 creates="~/envs/dev"
-
-#  - name: Install packages into dev virtualenv
-#    pip: name={{ item }} state=latest virtualenv=dev
-#    with_items:
-#     - awscli
-#     - saws
-#     - boto
-
-# Install atom packages
+# Atom packages
   - name: Install atom packages
-    command: apm install vim-mode
-  - name: Intsall atom jekyll
-    command: apm install jekyll
-  - name: Intsall atom go-plus
-    command: apm install go-plus
-  - name: Intsall atom linter
-    command: apm install linter
-  - name: Intsall atom linter-js-yaml
-    command: apm install linter-js-yaml
-  - name: Intsall atom linter-rubocop
-    command: apm install language-terraform
-  - name: Intsall atom language-terraform
-    command: apm install linter-rubocop
+    command: apm install {{ item }}
+    with_items:
+      - vim-mode
+      - linter
+      - linter-ui-default
+      - intentions
+      - busy-signal
+      - linter-js-yaml
+      - linter-jsonlint
+      - linter-markdown
+      - language-terraform
